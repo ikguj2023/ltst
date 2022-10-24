@@ -1,4 +1,5 @@
 def handler(event, context):
   print("Welcome to lambda handler")
+  print("Again Welcome to lambda handler")
   
   return{"action": "handler_executed"}
