@@ -77,3 +77,10 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        
+    - name: update aws lambda function
+      id: update-lambda-function
+      env: 
+        IMAGE_URI: ${{ steps.build-image.outputs.image }}
+      run: |
+        aws lambda update-function-code --function-name arn:aws:lambda:us-west-2:041841987914:function:tf1 --image-uri $IMAGE_URI
