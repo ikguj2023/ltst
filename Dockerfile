@@ -35,7 +35,7 @@ ARG FUNCTION_DIR
 WORKDIR ${FUNCTION_DIR}
 
 # Install aws-lambda-cpp build dependencies
-RUN pip install --no-cache-dir -r ${FUNCTION_DIR}/requirements.txt
+RUN pip install --no-cache-dir -r app/requirements.txt
 
 # Copy in the build image dependencies
 COPY --from=build-image ${FUNCTION_DIR} ${FUNCTION_DIR}
