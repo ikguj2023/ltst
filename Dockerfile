@@ -18,10 +18,10 @@ ARG FUNCTION_DIR="/function"
 #ARG FUNCTION_DIR
 
 # Create function directory
-RUN mkdir -p ${FUNCTION_DIR}
+RUN mkdir -p $FUNCTION_DIR
 
 # Copy function code
-COPY app/* ${FUNCTION_DIR}
+COPY app/* $FUNCTION_DIR
 
 # Install the runtime interface client
 RUN pip install \
@@ -38,7 +38,7 @@ FROM python:buster
 ARG FUNCTION_DIR="/function"
 #ARG FUNCTION_DIR
 # Set working directory to function root directory
-WORKDIR ${FUNCTION_DIR}
+WORKDIR $FUNCTION_DIR
 
 # Copy in the build image dependencies
 COPY --from=build-image ${FUNCTION_DIR} ${FUNCTION_DIR}
