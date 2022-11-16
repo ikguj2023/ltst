@@ -12,6 +12,8 @@ RUN apt-get update && \
   unzip \
   libcurl4-openssl-dev
 
+ARG FUNCTION_DIR="/function"
+
 # Include global arg in this stage of the build
 #ARG FUNCTION_DIR
 
@@ -33,6 +35,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 FROM python:buster
 
 # Include global arg in this stage of the build
+ARG FUNCTION_DIR="/function"
 #ARG FUNCTION_DIR
 # Set working directory to function root directory
 WORKDIR ${FUNCTION_DIR}
