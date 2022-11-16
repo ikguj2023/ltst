@@ -5,5 +5,5 @@ COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-ENTRYPOINT [ "/usr/local/bin/python", "-m", "awslambdaric" ]
+ENTRYPOINT [ "/usr/local/bin/python" ]
 CMD [ "app.handler" ]
