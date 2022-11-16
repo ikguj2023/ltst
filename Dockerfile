@@ -11,7 +11,9 @@ RUN apt-get update && \
   unzip \
   libcurl4-openssl-dev
     
-RUN apt-get install python3-dev -y && apt-get install libssl-dev -y && apt-get install swig 2.0.10 -y 
+RUN apt-get install python3-dev -y && apt-get install libssl-dev -y && apt-get install swig 2.0.10 -y && apt install python3-pip -y
+
+RUN pip3 install requests
 
 # Include global arg in this stage of the build
 ARG FUNCTION_DIR
