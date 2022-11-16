@@ -14,10 +14,6 @@ RUN apt-get update && \
     
 RUN apt-get install python3-dev -y && apt-get install libssl-dev -y && apt-get install swig 2.0.10 -y 
 
-RUN pip3 install playwright
-RUN playwright install-deps
-RUN playwright install chromium
-
 # Include global arg in this stage of the build
 ARG FUNCTION_DIR
 # Create function directory
