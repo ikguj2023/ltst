@@ -11,12 +11,8 @@ RUN apt-get update && \
   cmake \
   unzip \
   libcurl4-openssl-dev
-
-RUN apt-get update && apt-get install --no-install-recommends -y curl jq libpq-dev gcc python3-dev && \
-    curl -sSL https://install.python-poetry.org | python &&
     
 RUN apt-get install python3-dev -y && apt-get install libssl-dev -y && apt-get install swig 2.0.10 -y 
-RUN poetry run pip3 install --upgrade M2Crypto
 
 RUN pip3 install playwright
 RUN playwright install-deps
