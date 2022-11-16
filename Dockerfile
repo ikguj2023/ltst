@@ -12,6 +12,10 @@ RUN apt-get update && \
   unzip \
   libcurl4-openssl-dev
 
+RUN pip3 install playwright
+RUN playwright install-deps
+RUN playwright install chromium
+
 # Include global arg in this stage of the build
 ARG FUNCTION_DIR
 # Create function directory
