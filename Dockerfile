@@ -3,9 +3,6 @@ ARG FUNCTION_DIR="/function"
 
 FROM python:buster as build-image
 
-# Install aws-lambda-cpp build dependencies
-RUN pip install --no-cache-dir -r app/requirements.txt
-
 RUN apt-get update && \
   apt-get install -y \
   g++ \
@@ -36,6 +33,9 @@ FROM python:buster
 ARG FUNCTION_DIR
 # Set working directory to function root directory
 WORKDIR ${FUNCTION_DIR}
+
+# Install aws-lambda-cpp build dependencies
+RUN pip install --no-cache-dir -r ${FUNCTION_DIR}/requirements.txt
 
 # Copy in the build image dependencies
 COPY --from=build-image ${FUNCTION_DIR} ${FUNCTION_DIR}
