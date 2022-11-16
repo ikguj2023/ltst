@@ -1,8 +1,6 @@
 import sys
-import requests
 
 def handler(event, context): 
-    resp=requests.get("https://www.google.com")
-    print(resp)
+    print("test at nov 15 10:09 pm")
     return 'Hello from AWS Lambda using Python' + sys.version + '!'
 
