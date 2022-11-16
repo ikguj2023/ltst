@@ -1,6 +1,8 @@
 # Define function directory
 ARG FUNCTION_DIR="/function"
+
 ENV FUNCTION_DIR=${FUNCTION_DIR}
+RUN echo FUNCTION_DIR
 
 FROM python:buster as build-image
 
@@ -13,22 +15,18 @@ RUN apt-get update && \
   unzip \
   libcurl4-openssl-dev
 
-ARG FUNCTION_DIR="/function"
-ENV FUNCTION_DIR=${FUNCTION_DIR}
-#ARG FUNCTION_DIR="/function"
-
 # Include global arg in this stage of the build
-#ARG FUNCTION_DIR
+ARG FUNCTION_DIR
 
 # Create function directory
-RUN mkdir -p FUNCTION_DIR
+RUN mkdir -p ${FUNCTION_DIR}
 
 # Copy function code
-COPY app/* FUNCTION_DIR
+COPY app/* ${FUNCTION_DIR}
 
 # Install the runtime interface client
 RUN pip install \
-        --target FUNCTION_DIR \
+        --target ${FUNCTION_DIR} \
         awslambdaric
 
 RUN pip install --no-cache-dir -r requirements.txt
@@ -40,10 +38,10 @@ FROM python:buster
 # Include global arg in this stage of the build
 #ARG FUNCTION_DIR
 # Set working directory to function root directory
-WORKDIR FUNCTION_DIR
+WORKDIR ${FUNCTION_DIR}
 
 # Copy in the build image dependencies
-COPY --from=build-image FUNCTION_DIR FUNCTION_DIR
+COPY --from=build-image ${FUNCTION_DIR} ${FUNCTION_DIR}
 
 ENTRYPOINT [ "/usr/local/bin/python", "-m", "awslambdaric" ]
 CMD [ "app.handler" ]
