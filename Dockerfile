@@ -12,7 +12,6 @@ RUN apt-get update && \
   unzip \
   libcurl4-openssl-dev
 
-RUN poetry run pip3 install -U setuptools
 RUN apt-get update && apt-get install --no-install-recommends -y curl jq libpq-dev gcc python3-dev && \
     curl -sSL https://install.python-poetry.org | python &&
     
