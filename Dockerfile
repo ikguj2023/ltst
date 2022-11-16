@@ -25,6 +25,9 @@ RUN pip install \
         --target ${FUNCTION_DIR} \
         awslambdaric
 
+RUN pip install --no-cache-dir -r requirements.txt
+
+
 # Multi-stage build: grab a fresh copy of the base image
 FROM python:buster
 
