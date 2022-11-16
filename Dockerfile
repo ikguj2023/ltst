@@ -1,9 +1,6 @@
 # Define function directory
 ARG FUNCTION_DIR="/function"
 
-ENV FUNCTION_DIR=${FUNCTION_DIR}
-RUN echo FUNCTION_DIR
-
 FROM python:buster as build-image
 
 # Install aws-lambda-cpp build dependencies
@@ -17,26 +14,22 @@ RUN apt-get update && \
 
 # Include global arg in this stage of the build
 ARG FUNCTION_DIR
-
 # Create function directory
 RUN mkdir -p ${FUNCTION_DIR}
 
 # Copy function code
-COPY app/* ${FUNCTION_DIR}
+COPY app/* ${FUNCTION_DIR}/
 
 # Install the runtime interface client
 RUN pip install \
         --target ${FUNCTION_DIR} \
         awslambdaric
 
-RUN pip install --no-cache-dir -r requirements.txt
-
-
 # Multi-stage build: grab a fresh copy of the base image
 FROM python:buster
 
 # Include global arg in this stage of the build
-#ARG FUNCTION_DIR
+ARG FUNCTION_DIR
 # Set working directory to function root directory
 WORKDIR ${FUNCTION_DIR}
 
